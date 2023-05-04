@@ -7,10 +7,14 @@ certbun <DOMAIN> <API_KEY> <SECRET_KEY>
 ```
 
 ## Requirements
-On Raspbian you'll probsbly need libssl-dev
-```
-sudo apt install libssl-dev
-```
+- Nightly Rust
+  ```
+  rustup default nightly
+  ```
+- On Raspbian you'll probsbly need to download libssl-dev
+  ```
+  sudo apt install libssl-dev
+  ```
 
 ## Installation
 ```
