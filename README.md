@@ -1,18 +1,18 @@
 # certbun
 Cli for downloading SSL certificate bundle from Porkbun
 
-Usage
+## Usage
 ```
 certbun <DOMAIN> <API_KEY> <SECRET_KEY>
 ```
 
-Requirements
+## Requirements
 On Raspbian you'll probsbly need libssl-dev
 ```
 sudo apt install libssl-dev
 ```
 
-Installation
+## Installation
 ```
 cargo install --git https://github.com/vetleras/certbun
 ```
