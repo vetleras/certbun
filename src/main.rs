@@ -36,9 +36,9 @@ fn get_ssl_certificate_bundle(
 }
 
 fn write_to_file(path: &str, contents: &str) -> io::Result<()> {
-    fs::write(path, contents).inspect_err(|e| {
+    fs::write(path, contents).inspect_err(|_| {
         println!(
-            "writing to file {}{path} failed: {e}",
+            "writing to file {}{path} failed",
             env::current_dir().unwrap().to_string_lossy()
         )
     })
@@ -48,7 +48,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
     let ssl_cerificate_bundle =
         get_ssl_certificate_bundle(&cli.domain, &cli.api_key, &cli.secret_key)
-            .inspect_err(|e| println!("retrival of ssl certificate bundle failed: {e}"))?;
+            .inspect_err(|_| println!("retrival of SSL certificate bundle failed"))?;
 
     write_to_file(
         "ssl_certificate.crt",
@@ -56,5 +56,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     )?;
     write_to_file("ssl_certificate.key", &ssl_cerificate_bundle.private_key)?;
 
+    println!("successful SSL certificate bundle download");
     Ok(())
 }
