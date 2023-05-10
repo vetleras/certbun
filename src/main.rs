@@ -1,5 +1,4 @@
-#![feature(result_option_inspect)]
-use std::{env, fs, io};
+use std::fs;
 
 use clap::Parser;
 use serde::Deserialize;
@@ -35,27 +34,16 @@ fn get_ssl_certificate_bundle(
         .json()
 }
 
-fn write_to_file(path: &str, contents: &str) -> io::Result<()> {
-    fs::write(path, contents).inspect_err(|_| {
-        println!(
-            "writing to file {}{path} failed",
-            env::current_dir().unwrap().to_string_lossy()
-        )
-    })
-}
-
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
     let ssl_cerificate_bundle =
-        get_ssl_certificate_bundle(&cli.domain, &cli.api_key, &cli.secret_key)
-            .inspect_err(|_| println!("retrival of SSL certificate bundle failed"))?;
+        get_ssl_certificate_bundle(&cli.domain, &cli.api_key, &cli.secret_key)?;
 
-    write_to_file(
+    fs::write(
         "ssl_certificate.crt",
         &ssl_cerificate_bundle.certificate_chain,
     )?;
-    write_to_file("ssl_certificate.key", &ssl_cerificate_bundle.private_key)?;
+    fs::write("ssl_certificate.key", &ssl_cerificate_bundle.private_key)?;
 
-    println!("successful SSL certificate bundle download");
     Ok(())
 }
