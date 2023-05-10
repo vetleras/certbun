@@ -11,9 +11,9 @@ certbun <DOMAIN> <API_KEY> <SECRET_KEY>
   ```
   rustup default nightly
   ```
-- On Raspbian you'll probsbly need to download libssl-dev
+- On Raspbian you'll probsbly need to download libssl-dev, pkg-config and build-essential
   ```
-  sudo apt install libssl-dev
+  sudo apt install libssl-dev build-essential pkg-config
   ```
 
 ## Installation
